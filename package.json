@@ -6,11 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Yann Dumasy",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.8",
     "body-parser": "^1.18.3",
+    "bootstrap": "^4.5.1",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.3.8",
