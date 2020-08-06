@@ -9,6 +9,7 @@
   "author": "Yann Dumasy",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "bcrypt": "^3.0.8",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.5.1",
