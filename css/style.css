@@ -9658,6 +9658,13 @@ a:hover {
   font-weight: 500;
 }
 
+.jumbotron a {
+  text-decoration: underline;
+}
+.jumbotron a:hover {
+  font-weight: 700;
+}
+
 .fab {
   color: #6495C5;
 }
@@ -9666,7 +9673,12 @@ a:hover {
 }
 
 @media (max-width: 991px) {
-  .fixed-bottom {
+  .fixed-bottom.index {
+    position: relative;
+  }
+}
+@media (max-width: 575px) {
+  .fixed-bottom.cart {
     position: relative;
   }
 }
