@@ -1,0 +1,12 @@
+.jumbotron-cart a {
+    text-decoration: underline;
+    &:hover {
+        font-weight: 700;
+    }
+}
+
+@media (max-width: 575px) {
+    .fixed-bottom.footer-cart {
+        position: relative;
+    }
+}

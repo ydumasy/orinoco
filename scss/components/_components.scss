@@ -1,0 +1,18 @@
+.nav-item.active {
+    font-weight: 500;
+}
+
+nav a:hover, footer a:hover {
+    font-weight: 500;
+}
+
+.fab {
+    color: $secondary;
+    &:hover {
+        color: $primary;
+    }
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    color: black;
+}

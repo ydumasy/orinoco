@@ -1,36 +1,5 @@
 @import "variable_overrides";
 @import "../bootstrap/scss/bootstrap.scss";
-
-.nav-item.active {
-    font-weight: 500;
-}
-
-a:hover {
-    font-weight: 500;
-}
-
-.jumbotron a {
-    text-decoration: underline;
-    &:hover {
-        font-weight: 700;
-    }
-}
-
-.fab {
-    color: $secondary;
-    &:hover {
-        color: $primary;
-    }
-}
-
-@media (max-width: 991px) {
-    .fixed-bottom.index {
-        position: relative;
-    }
-}
-
-@media (max-width: 575px) {
-    .fixed-bottom.cart {
-        position: relative;
-    }
-}
+@import "pages/index.scss";
+@import "pages/cart.scss";
+@import "components/components.scss";
