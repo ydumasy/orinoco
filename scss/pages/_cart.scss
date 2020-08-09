@@ -1,3 +1,11 @@
+.body-cart {
+    height: 100vh;
+}
+
+.container-size {
+    height: calc(100vh - 76px - 67px);
+}
+
 .jumbotron-cart a {
     text-decoration: underline;
     &:hover {
@@ -8,5 +16,11 @@
 @media (max-width: 575px) {
     .fixed-bottom.footer-cart {
         position: relative;
+    }
+}
+
+@media (max-width: 991px) {
+    .container-size {
+        height: calc(100vh - 76px - 107px);
     }
 }
