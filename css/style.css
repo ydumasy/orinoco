@@ -9680,12 +9680,23 @@ h3 {
     height: calc(100vh - 76px - 107px);
   }
 }
+.navbar-brand:hover {
+  animation: wiggle 300ms;
+}
+
 .nav-item.active {
   font-weight: 500;
 }
 
 nav a:hover, footer a:hover {
   font-weight: 500;
+}
+
+article.card {
+  transition: transform 500ms;
+}
+article.card:hover {
+  transform: scale(1.1);
 }
 
 .fab {
@@ -9697,6 +9708,18 @@ nav a:hover, footer a:hover {
 
 .carousel-control-prev-icon, .carousel-control-next-icon {
   color: black;
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  20%, 60% {
+    transform: rotate(-2deg);
+  }
+  40%, 80% {
+    transform: rotate(2deg);
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,5 +1,6 @@
 let url = location.search;
 
+// Affichage de la page en fonction du produit choisi
 const removeChild = () => {
     let footer = document.querySelector('footer');
 
