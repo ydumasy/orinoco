@@ -9650,6 +9650,13 @@ h3 {
     border-color: #dee2e6;
   }
 }
+article.card {
+  transition: transform 500ms;
+}
+article.card:hover {
+  transform: scale(1.1);
+}
+
 @media (max-width: 991px) {
   .fixed-bottom.footer-index {
     position: relative;
@@ -9680,6 +9687,14 @@ h3 {
     height: calc(100vh - 76px - 107px);
   }
 }
+#productTeddies, #productCameras, #productFurniture {
+  display: none;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  color: black;
+}
+
 .navbar-brand:hover {
   animation: wiggle 300ms;
 }
@@ -9692,22 +9707,11 @@ nav a:hover, footer a:hover {
   font-weight: 500;
 }
 
-article.card {
-  transition: transform 500ms;
-}
-article.card:hover {
-  transform: scale(1.1);
-}
-
 .fab {
   color: #6495C5;
 }
 .fab:hover {
   color: #1C5D9D;
-}
-
-.carousel-control-prev-icon, .carousel-control-next-icon {
-  color: black;
 }
 
 @keyframes wiggle {
