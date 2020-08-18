@@ -2,6 +2,23 @@
     display: none;
 }
 
+.carousel-control-prev, .carousel-control-next {
+    align-items: initial;
+    top: 25%;
+}
+
 .carousel-control-prev-icon, .carousel-control-next-icon {
     color: black;
+}
+
+@media (max-width: 450px) {
+    .carousel-control-prev, .carousel-control-next {
+        top: 20%;
+    }
+}
+
+@media (max-width: 350px) {
+    .carousel-control-prev, .carousel-control-next {
+        top: 15%;
+    }
 }

@@ -12,3 +12,16 @@ const showProduct = () => {
 }
 
 showProduct();
+
+//Modification du prix en fonction de la quantité choisie
+let formElts = document.getElementsByTagName('form');
+
+for (i = 0 ; i < formElts.length ; i++) {
+    let oldPrice = document.createElement('input');
+    oldPrice.value = formElts[i].price.value;
+    
+    formElts[i].addEventListener('change', function() {
+        this.price.value = oldPrice.value;
+        this.price.value = parseInt(this.price.value, 10) * parseInt(this.quantity.options[this.quantity.selectedIndex].text, 10) + " €";
+    });
+}
