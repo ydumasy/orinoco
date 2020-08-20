@@ -9,7 +9,7 @@
   "author": "Yann Dumasy",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.8",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.5.1",
     "express": "^4.16.4",
