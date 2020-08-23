@@ -15,3 +15,4 @@ function ajaxGet(url) {
         req.send(null);
     });
 }
+

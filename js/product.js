@@ -56,11 +56,11 @@ function showProducts(products) {
 
         let img = document.createElement('img');
         img.src = products[i].imageUrl;
-        if (img.src.indexOf('teddy') !== -1) {
+        if (location.search === '?id=teddies') {
             img.alt = "Ours en peluche";
-        } else if (img.src.indexOf('vcam') !== -1) {
+        } else if (location.search === '?id=cameras') {
             img.alt = "Caméra vintage";
-        } else if (img.src.indexOf('oak') !== -1) {
+        } else if (location.search === '?id=furniture') {
             img.alt = "Meuble en chêne";
         }
         img.classList.add('d-block', 'w-100');
@@ -82,11 +82,11 @@ function showProducts(products) {
         let labelAttribute = document.createElement('label');
         labelAttribute.setAttribute('for', 'attribute' + i);
         labelAttribute.classList.add('offset-1', 'offset-sm-0', 'col-sm-3', 'col-form-label');
-        if (img.src.indexOf('teddy') !== -1) {
+        if (location.search === '?id=teddies') {
             labelAttribute.textContent = 'Couleur :';
-        } else if (img.src.indexOf('vcam') !== -1) {
+        } else if (location.search === '?id=cameras') {
             labelAttribute.textContent = 'Lentille :';
-        } else if (img.src.indexOf('oak') !== -1) {
+        } else if (location.search === '?id=furniture') {
             labelAttribute.textContent = 'Vernis :';
         }
         rowAttribute.appendChild(labelAttribute);
@@ -94,24 +94,21 @@ function showProducts(products) {
         attribute.id = 'attribute' + i;
         attribute.classList.add('offset-1', 'col-10', 'offset-sm-0', 'col-sm-4', 'form-control');
         rowAttribute.appendChild(attribute); 
-        if (img.src.indexOf('teddy') !== -1) {
+        if (location.search === '?id=teddies') {
             for (let j = 0 ; j < products[i].colors.length ; j++) {
                 let option = document.createElement('option');
-                if (i === 0) option.setAttribute('selected', '');
                 option.textContent = products[i].colors[j];
                 attribute.appendChild(option);
             }
-        } else if (img.src.indexOf('vcam') !== -1) {
+        } else if (location.search === '?id=cameras') {
             for (let j = 0 ; j < products[i].lenses.length ; j++) {
                 let option = document.createElement('option');
-                if (i === 0) option.setAttribute('selected', '');
                 option.textContent = products[i].lenses[j];
                 attribute.appendChild(option);
             }
-        } else if (img.src.indexOf('oak') !== -1) {
+        } else if (location.search === '?id=furniture') {
             for (let j = 0 ; j < products[i].varnish.length ; j++) {
                 let option = document.createElement('option');
-                if (i === 0) option.setAttribute('selected', '');
                 option.textContent = products[i].varnish[j];
                 attribute.appendChild(option);
             }
@@ -130,7 +127,6 @@ function showProducts(products) {
         rowQuantity.appendChild(quantity);
         for (let i = 1 ; i <= 9 ; i++) {
             let option = document.createElement('option');
-            if (i === 0) option.setAttribute('selected', '');
             option.textContent = i;
             quantity.appendChild(option);
         }
@@ -147,14 +143,41 @@ function showProducts(products) {
         addCart.textContent = "Ajouter au panier";
         carouselItem.appendChild(addCart);
 
+        // Stockage des informations du produit ajouté au panier (catégorie 'ours en peluche')
+        if (location.search === '?id=teddies') {
+            addCart.addEventListener('click', function() {
+                let newProduct = {
+                    name: products[i].name,
+                    id: products[i]._id,
+                    quantity: quantity.options[quantity.selectedIndex].text,
+                    price: (products[i].price * chosenQuantity) / 100
+                }
+
+                let cartContent = [];
+                if (JSON.parse(localStorage.getItem('cartContent')) === null) {
+                    cartContent.push(newProduct);
+                } else {
+                    cartContent = JSON.parse(localStorage.getItem('cartContent'));
+                    let productInCart = false;
+                    for (let article of cartContent) {
+                        if (article.id === newProduct.id) {
+                            article.quantity = parseInt(article.quantity, 10) + parseInt(newProduct.quantity, 10);
+                            productInCart = true;
+                        }
+                    }
+                    if (!productInCart) cartContent.push(newProduct);
+                }
+
+                localStorage.setItem('cartContent', JSON.stringify(cartContent));
+            });
+        }
+
         let footer = document.querySelector('footer');
         footer.classList.remove('fixed-bottom');
     }
 }
 
-let url = location.search;
-
-switch(url) {
+switch (location.search) {
     case '?id=teddies':
         ajaxGet('http://localhost:3000/api/teddies')
             .then (function(response) {
@@ -183,6 +206,6 @@ switch(url) {
 // Calcul du prix en fonction de la quantité choisie
 function calculatePrice(product, price, quantity) {
     quantity.addEventListener('change', function(e) {
-    price.textContent = "Prix : " + product.price * e.target.options[e.target.selectedIndex].text / 100 + " €";
+        price.textContent = "Prix : " + product.price * e.target.options[e.target.selectedIndex].text / 100 + " €";
     });
 }
