@@ -134,9 +134,11 @@ function showProducts(products) {
         let price = document.createElement('p');
         price.classList.add('offset-1', 'offset-sm-0', 'mt-3');
         price.textContent = "Prix : " + products[i].price / 100 + " €";
+        quantity.addEventListener('change', function() {
+            let chosenQuantity = quantity.options[quantity.selectedIndex].text;
+            calculatePrice(products[i], price, chosenQuantity);
+        });
         carouselItem.appendChild(price);
-
-        calculatePrice(products[i], price, quantity);
 
         let addCart = document.createElement('button');
         addCart.classList.add('btn', 'btn-primary', 'btn-block');
@@ -147,10 +149,11 @@ function showProducts(products) {
         if (location.search === '?id=teddies') {
             addCart.addEventListener('click', function() {
                 let newProduct = {
+                    image: products[i].imageUrl,
                     name: products[i].name,
                     id: products[i]._id,
-                    quantity: quantity.options[quantity.selectedIndex].text,
-                    price: (products[i].price * chosenQuantity) / 100
+                    quantity: chosenQuantity,
+                    price: products[i].price * quantity.options[quantity.selectedIndex].text
                 }
 
                 let cartContent = [];
@@ -201,11 +204,4 @@ switch (location.search) {
                 showProducts(furniture);
             });
         break;
-}
-
-// Calcul du prix en fonction de la quantité choisie
-function calculatePrice(product, price, quantity) {
-    quantity.addEventListener('change', function(e) {
-        price.textContent = "Prix : " + product.price * e.target.options[e.target.selectedIndex].text / 100 + " €";
-    });
 }

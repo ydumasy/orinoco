@@ -16,3 +16,18 @@ function ajaxGet(url) {
     });
 }
 
+// Modification du header en fonction du nombre de produits présents dans le panier
+function headerModifications() {
+    let cart = document.getElementById('cart');
+    let cartContent = JSON.parse(localStorage.getItem('cartContent'));
+    
+    if (cartContent !== null) cart.textContent += "(" + cartContent.length + ")";
+}
+headerModifications();
+
+// Calcul du prix en fonction de la quantité choisie
+function calculatePrice(product, price, quantity) {
+    price.textContent = "Prix : " + (product.price * quantity) / 100 + " €";
+    console.log(price.textContent);
+}
+

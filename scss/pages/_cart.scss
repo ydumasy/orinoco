@@ -13,9 +13,20 @@
     }
 }
 
+.col-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.product-name {
+    font-size: 2rem;
+}
+
 @media (max-width: 575px) {
     .fixed-bottom.footer-cart {
         position: relative;
+        bottom: auto;
     }
 }
 
