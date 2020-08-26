@@ -28,6 +28,5 @@ headerModifications();
 // Calcul du prix en fonction de la quantité choisie
 function calculatePrice(product, price, quantity) {
     price.textContent = "Prix : " + (product.price * quantity) / 100 + " €";
-    console.log(price.textContent);
 }
 

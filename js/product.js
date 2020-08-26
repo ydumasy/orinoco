@@ -153,7 +153,7 @@ function showProducts(products) {
                     name: products[i].name,
                     id: products[i]._id,
                     quantity: quantity.options[quantity.selectedIndex].text,
-                    price: products[i].price * quantity.options[quantity.selectedIndex].text
+                    price: products[i].price
                 }
 
                 let cartContent = [];
