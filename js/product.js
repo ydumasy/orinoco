@@ -47,6 +47,32 @@ carouselControlNextIcon.setAttribute('aria-hidden', 'true');
 carouselControlNext.appendChild(carouselControlNextIcon);
 
 // Affichage de la page produit en fonction de la catégorie de produits choisie
+switch (location.search) {
+    case '?id=teddies':
+        ajaxGet('http://localhost:3000/api/teddies')
+            .then (function(response) {
+                let teddies = response;
+                showProducts(teddies);
+            });
+        break;
+        
+    case '?id=cameras':
+        ajaxGet('http://localhost:3000/api/cameras')
+            .then (function(response) {
+                let cameras = response;
+                showProducts(cameras);
+            });
+        break;
+
+    case '?id=furniture':
+        ajaxGet('http://localhost:3000/api/furniture')
+            .then (function(response) {
+                let furniture = response;
+                showProducts(furniture);
+            });
+        break;
+}
+
 function showProducts(products) {
     for (let i = 0 ; i < products.length ; i++) {
         let carouselItem = document.createElement('div');
@@ -66,6 +92,7 @@ function showProducts(products) {
         img.classList.add('d-block', 'w-100');
         carouselItem.appendChild(img);
 
+        // Affichage des caractéristiques de chaque produit
         let name = document.createElement('h1');
         name.textContent = products[i].name;
         name.classList.add('text-center', 'mt-3');
@@ -114,6 +141,7 @@ function showProducts(products) {
             }
         }
 
+        // Possibilité de choisir la quantité
         let rowQuantity = document.createElement('div');
         rowQuantity.classList.add('row');
         carouselItem.appendChild(rowQuantity);
@@ -134,6 +162,8 @@ function showProducts(products) {
         let price = document.createElement('p');
         price.classList.add('offset-1', 'offset-sm-0', 'mt-3');
         price.textContent = "Prix : " + products[i].price / 100 + " €";
+
+        // Calcul du prix en fonction de la quantité choisie
         quantity.addEventListener('change', function() {
             let chosenQuantity = quantity.options[quantity.selectedIndex].text;
             calculatePrice(products[i], price, chosenQuantity);
@@ -180,30 +210,4 @@ function showProducts(products) {
         let footer = document.querySelector('footer');
         footer.classList.remove('fixed-bottom');
     }
-}
-
-switch (location.search) {
-    case '?id=teddies':
-        ajaxGet('http://localhost:3000/api/teddies')
-            .then (function(response) {
-                let teddies = response;
-                showProducts(teddies);
-            });
-        break;
-        
-    case '?id=cameras':
-        ajaxGet('http://localhost:3000/api/cameras')
-            .then (function(response) {
-                let cameras = response;
-                showProducts(cameras);
-            });
-        break;
-
-    case '?id=furniture':
-        ajaxGet('http://localhost:3000/api/furniture')
-            .then (function(response) {
-                let furniture = response;
-                showProducts(furniture);
-            });
-        break;
 }

@@ -1,7 +1,8 @@
 let cartContent = JSON.parse(localStorage.getItem('cartContent'));
 let main = document.querySelector('main');
 
-if (cartContent.length > 0) {
+// Affichage du panier d'achat si celui-ci n'est pas vide
+if (cartContent !== null && cartContent.length > 0) {
     while (main.firstChild) main.removeChild(main.firstChild);
     main.classList.remove('container-size');
 
@@ -43,6 +44,7 @@ if (cartContent.length > 0) {
         rowQuantity.appendChild(addButton);
         rowQuantity.appendChild(removeButton);
 
+        // Possibilité de modifier la quantité de produits demandée
         addButton.addEventListener('click', function() {
             cartContent[i].quantity++;
             calculatePrice(cartContent[i], price, cartContent[i].quantity);
@@ -77,6 +79,7 @@ if (cartContent.length > 0) {
         deleteButton.textContent = "Supprimer";
         spanElt.appendChild(deleteButton);
 
+        // Possibilité de supprimer l'article du panier
         deleteButton.addEventListener('click', function() {
             if (confirm("Voulez-vous vraiment retirer ce produit du panier ?")) {
                 cartContent.splice(i, 1);
@@ -86,14 +89,112 @@ if (cartContent.length > 0) {
         });       
     }
 
+    // Calcul du prix total
     let totalPrice = document.createElement('h5');
     totalPrice.textContent = "Prix total : " + calculateTotalPrice(cartContent) + " €";
     main.appendChild(totalPrice);
+
+    // Mise en place du formulaire
+    let formElt = document.createElement('form');
+    formElt.classList.add('mt-5');
+    main.appendChild(formElt);
+
+    let formGroupName = document.createElement('div');
+    formGroupName.classList.add('form-group', 'row');
+    formElt.appendChild(formGroupName)
+    let labelName = document.createElement('label');
+    labelName.setAttribute ('for', 'name');
+    labelName.classList.add('col-12', 'col-sm-4', 'col-md-3', 'col-lg-2', 'text-center', 'text-sm-left', 'col-form-label');
+    labelName.textContent = "Votre nom :";
+    let name = document.createElement('input');
+    name.type = 'text';
+    name.id = 'name';
+    name.classList.add('col-12', 'col-sm-5', 'col-md-4', 'form-control');
+    formGroupName.appendChild(labelName);
+    formGroupName.appendChild(name);
+    let helpName = document.createElement('span');
+    helpName.classList.add('ml-3', 'pt-2');
+    helpName.style.color = 'red';
+    formGroupName.appendChild(helpName);
+
+    let formGroupFirstName = document.createElement('div');
+    formGroupFirstName.classList.add('form-group', 'row');
+    formElt.appendChild(formGroupFirstName)
+    let labelFirstName = document.createElement('label');
+    labelFirstName.setAttribute ('for', 'firstName');
+    labelFirstName.classList.add('col-12', 'col-sm-4', 'col-md-3', 'col-lg-2', 'text-center', 'text-sm-left', 'col-form-label');
+    labelFirstName.textContent = "Votre prénom :";
+    let firstName = document.createElement('input');
+    firstName.type = 'text';
+    firstName.id = 'firstName';
+    firstName.classList.add('col-12', 'col-sm-5', 'col-md-4', 'form-control');
+    formGroupFirstName.appendChild(labelFirstName);
+    formGroupFirstName.appendChild(firstName);
+    let helpFirstName = document.createElement('span');
+    helpFirstName.classList.add('ml-3', 'pt-2');
+    helpFirstName.style.color = 'red';
+    formGroupFirstName.appendChild(helpFirstName);
+
+    let formGroupAddress = document.createElement('div');
+    formGroupAddress.classList.add('form-group', 'row');
+    formElt.appendChild(formGroupAddress)
+    let labelAddress = document.createElement('label');
+    labelAddress.setAttribute ('for', 'address');
+    labelAddress.classList.add('col-12', 'col-sm-4', 'col-md-3', 'col-lg-2', 'text-center', 'text-sm-left', 'col-form-label');
+    labelAddress.textContent = "Votre adresse :";
+    let address = document.createElement('input');
+    address.type = 'text';
+    address.id = 'address';
+    address.classList.add('col-12', 'col-sm-8', 'col-lg-10', 'form-control');
+    formGroupAddress.appendChild(labelAddress);
+    formGroupAddress.appendChild(address);
+    let helpAddress = document.createElement('span');
+    helpAddress.classList.add('ml-3', 'pt-2');
+    helpAddress.style.color = 'red';
+    formGroupAddress.appendChild(helpAddress);
+
+    let formGroupMail = document.createElement('div');
+    formGroupMail.classList.add('form-group', 'row');
+    formElt.appendChild(formGroupMail)
+    let labelMail = document.createElement('label');
+    labelMail.setAttribute ('for', 'mail');
+    labelMail.classList.add('col-12', 'col-sm-4', 'col-md-3', 'col-lg-2', 'text-center', 'text-sm-left', 'col-form-label');
+    labelMail.textContent = "Votre e-mail :";
+    let mail = document.createElement('input');
+    mail.type = 'email';
+    mail.id = 'mail';
+    mail.classList.add('col-12', 'col-sm-5', 'col-md-4', 'form-control');
+    formGroupMail.appendChild(labelMail);
+    formGroupMail.appendChild(mail);
+    let helpMail = document.createElement('span');
+    helpMail.classList.add('ml-3', 'pt-2');
+    helpMail.style.color = 'red';
+    formGroupMail.appendChild(helpMail);
+
+    let formGroupDate = document.createElement('div');
+    formGroupDate.classList.add('form-group', 'row');
+    formElt.appendChild(formGroupDate)
+    let labelDate = document.createElement('label');
+    labelDate.setAttribute ('for', 'date');
+    labelDate.classList.add('col-12', 'col-sm-4', 'col-md-3', 'col-lg-2', 'text-center', 'text-sm-left', 'col-form-label');
+    labelDate.textContent = "Date :";
+    let date = document.createElement('input');
+    date.type = 'date';
+    date.id = 'date';
+    date.classList.add('col-12', 'col-sm-5', 'col-md-4', 'form-control');
+    formGroupDate.appendChild(labelDate);
+    formGroupDate.appendChild(date);
+
+    let formButton = document.createElement('button');
+    formButton.classList.add('btn', 'btn-light', 'mb-5');
+    formButton.textContent = "Passer commande";
+    formElt.appendChild(formButton);
 
     let footer = document.querySelector('footer');
     footer.classList.remove('fixed-bottom', 'footer-cart');
 }
 
+// Fonction permettant le calcul du prix total
 function calculateTotalPrice(articles) {
     let sum = 0;
     for (let i in articles) {
