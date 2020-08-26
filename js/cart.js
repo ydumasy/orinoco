@@ -135,6 +135,24 @@ if (cartContent !== null && cartContent.length > 0) {
     helpFirstName.style.color = 'red';
     formGroupFirstName.appendChild(helpFirstName);
 
+    // Contrôle du nom et du prénom en fin de saisie
+    name.addEventListener("blur", function (e) {
+        let regexName = /^[a-zA-Z]+$/;
+        let errorMessage = "";
+        if (!regexName.test(e.target.value)) {
+            errorMessage = "Nom incorrect";
+        }
+        helpName.textContent = errorMessage;
+    });
+    firstName.addEventListener("blur", function (e) {
+        let regexFirstName = /^[a-zA-Z]+$/;
+        let errorMessage = "";
+        if (!regexFirstName.test(e.target.value)) {
+            errorMessage = "Prénom incorrect";
+        }
+        helpFirstName.textContent = errorMessage;
+    });
+
     let formGroupAddress = document.createElement('div');
     formGroupAddress.classList.add('form-group', 'row');
     formElt.appendChild(formGroupAddress)
@@ -152,6 +170,44 @@ if (cartContent !== null && cartContent.length > 0) {
     helpAddress.classList.add('ml-3', 'pt-2');
     helpAddress.style.color = 'red';
     formGroupAddress.appendChild(helpAddress);
+
+    // Contrôle de l'adresse en fin de saisie
+    address.addEventListener("blur", function(e) {
+        let regexAddress = /[a-zA-Z]+.+[0-9]+/;
+        let errorMessage = "";
+        if (!regexAddress.test(e.target.value)) {
+            errorMessage = "Adresse incorrecte";
+        }
+        helpAddress.textContent = errorMessage;
+    });
+
+    let formGroupCity = document.createElement('div');
+    formGroupCity.classList.add('form-group', 'row');
+    formElt.appendChild(formGroupCity)
+    let labelCity = document.createElement('label');
+    labelCity.setAttribute ('for', 'city');
+    labelCity.classList.add('col-12', 'col-sm-4', 'col-md-3', 'col-lg-2', 'text-center', 'text-sm-left', 'col-form-label');
+    labelCity.textContent = "Votre ville :";
+    let city = document.createElement('input');
+    city.type = 'text';
+    city.id = 'city';
+    city.classList.add('col-12', 'col-sm-5', 'col-md-4', 'form-control');
+    formGroupCity.appendChild(labelCity);
+    formGroupCity.appendChild(city);
+    let helpCity = document.createElement('span');
+    helpCity.classList.add('ml-3', 'pt-2');
+    helpCity.style.color = 'red';
+    formGroupCity.appendChild(helpCity);
+
+    // Contrôle de la ville en fin de saisie
+    city.addEventListener("blur", function(e) {
+        let regexCity = /^[a-zA-Z]+.+[a-zA-Z]$/;
+        let errorMessage = "";
+        if (!regexCity.test(e.target.value)) {
+            errorMessage = "Nom de ville incorrect";
+        }
+        helpCity.textContent = errorMessage;
+    });
 
     let formGroupMail = document.createElement('div');
     formGroupMail.classList.add('form-group', 'row');
@@ -171,19 +227,15 @@ if (cartContent !== null && cartContent.length > 0) {
     helpMail.style.color = 'red';
     formGroupMail.appendChild(helpMail);
 
-    let formGroupDate = document.createElement('div');
-    formGroupDate.classList.add('form-group', 'row');
-    formElt.appendChild(formGroupDate)
-    let labelDate = document.createElement('label');
-    labelDate.setAttribute ('for', 'date');
-    labelDate.classList.add('col-12', 'col-sm-4', 'col-md-3', 'col-lg-2', 'text-center', 'text-sm-left', 'col-form-label');
-    labelDate.textContent = "Date :";
-    let date = document.createElement('input');
-    date.type = 'date';
-    date.id = 'date';
-    date.classList.add('col-12', 'col-sm-5', 'col-md-4', 'form-control');
-    formGroupDate.appendChild(labelDate);
-    formGroupDate.appendChild(date);
+    // Contrôle du mail en fin de saisie
+    mail.addEventListener("blur", function(e) {
+        let regexMail = /^.+@.+\..+$/;
+        let errorMessage = "";
+        if (!regexMail.test(e.target.value)) {
+            errorMessage = "Adresse incorrecte";
+        }
+        helpMail.textContent = errorMessage;
+    });
 
     let formButton = document.createElement('button');
     formButton.classList.add('btn', 'btn-light', 'mb-5');
