@@ -152,7 +152,7 @@ function showProducts(products) {
                     image: products[i].imageUrl,
                     name: products[i].name,
                     id: products[i]._id,
-                    quantity: chosenQuantity,
+                    quantity: quantity.options[quantity.selectedIndex].text,
                     price: products[i].price * quantity.options[quantity.selectedIndex].text
                 }
 
@@ -170,8 +170,10 @@ function showProducts(products) {
                     }
                     if (!productInCart) cartContent.push(newProduct);
                 }
-
                 localStorage.setItem('cartContent', JSON.stringify(cartContent));
+
+                alert("Votre produit a bien été ajouté au panier");
+                headerModifications();
             });
         }
 

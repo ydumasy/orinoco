@@ -21,7 +21,7 @@ function headerModifications() {
     let cart = document.getElementById('cart');
     let cartContent = JSON.parse(localStorage.getItem('cartContent'));
     
-    if (cartContent !== null) cart.textContent += "(" + cartContent.length + ")";
+    if (cartContent !== null && cartContent.length > 0) cart.textContent = "Mon Panier(" + cartContent.length + ")";
 }
 headerModifications();
 
