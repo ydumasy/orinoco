@@ -16,3 +16,9 @@ nav a:hover, footer a:hover {
         color: $primary;
     }
 }
+
+@media (max-width: 320px) {
+    .footer-item {
+        width: 100%;
+    }
+}

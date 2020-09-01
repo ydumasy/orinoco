@@ -1,18 +1,36 @@
-// Fonction avec promesse permettant d'effectuer une requête HTTP asynchrone
+// Fonctions avec promesses permettant d'effectuer des requêtes HTTP asynchrones
 function ajaxGet(url) {
     let req = new XMLHttpRequest();
     return new Promise ((resolve, reject) => {
-        req.open("GET", url);
         req.onreadystatechange = function() {
             if (this.readyState === XMLHttpRequest.DONE) {
                 if (this.status >= 200 && this.status < 400) {
-                    resolve(JSON.parse(req.responseText));
+                    resolve(JSON.parse(this.responseText));
                 } else {
-                    reject(console.error(req.status + " " + req.statusText + " " + url));
+                    reject(console.error(this.status + " " + this.statusText + " " + url));
                 }
             }
         };
+        req.open("GET", url);
         req.send(null);
+    });
+}
+
+function ajaxPost(url, data) {
+    let req = new XMLHttpRequest();
+    return new Promise ((resolve, reject) => {
+        req.onreadystatechange = function() {
+            if (this.readyState === XMLHttpRequest.DONE) {
+                if (this.status >= 200 && this.status < 400) {
+                    resolve(this.responseText);
+                } else {
+                    reject(console.error(this.status + " " + this.statusText + " " + url));
+                }
+            }
+        };
+        req.open("POST", url);
+        req.setRequestHeader("Content-Type", "application/json");
+        req.send(data);
     });
 }
 
@@ -26,7 +44,15 @@ function headerModifications() {
 headerModifications();
 
 // Calcul du prix en fonction de la quantité choisie
-function calculatePrice(product, price, quantity) {
-    price.textContent = "Prix : " + (product.price * quantity) / 100 + " €";
+function calculatePrice(price, quantity) {
+    if (price < 0 && quantity <1) {
+        console.error("Prix et quantité incorrects");
+    } else if (price < 0) {
+        console.error("Prix incorrect");
+    } else if (quantity < 1) {
+        console.error("Quantité incorrecte");
+    } else {
+        return (price * quantity) / 100;
+    }
 }
 

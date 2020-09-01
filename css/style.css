@@ -9662,6 +9662,30 @@ article.card:hover {
     position: relative;
   }
 }
+#productTeddies, #productCameras, #productFurniture {
+  display: none;
+}
+
+.carousel-control-prev, .carousel-control-next {
+  align-items: initial;
+  top: 25%;
+  bottom: auto;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  color: black;
+}
+
+@media (max-width: 450px) {
+  .carousel-control-prev, .carousel-control-next {
+    top: 20%;
+  }
+}
+@media (max-width: 350px) {
+  .carousel-control-prev, .carousel-control-next {
+    top: 15%;
+  }
+}
 .body-cart {
   height: 100vh;
 }
@@ -9698,30 +9722,16 @@ article.card:hover {
     height: calc(100vh - 76px - 107px);
   }
 }
-#productTeddies, #productCameras, #productFurniture {
-  display: none;
+.col-confirm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.carousel-control-prev, .carousel-control-next {
-  align-items: initial;
-  top: 25%;
-  bottom: auto;
+.strong {
+  font-weight: 500;
 }
 
-.carousel-control-prev-icon, .carousel-control-next-icon {
-  color: black;
-}
-
-@media (max-width: 450px) {
-  .carousel-control-prev, .carousel-control-next {
-    top: 20%;
-  }
-}
-@media (max-width: 350px) {
-  .carousel-control-prev, .carousel-control-next {
-    top: 15%;
-  }
-}
 .navbar-brand:hover {
   animation: wiggle 300ms;
 }
@@ -9741,6 +9751,11 @@ nav a:hover, footer a:hover {
   color: #1C5D9D;
 }
 
+@media (max-width: 320px) {
+  .footer-item {
+    width: 100%;
+  }
+}
 @keyframes wiggle {
   0%, 100% {
     transform: rotate(0deg);

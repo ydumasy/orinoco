@@ -166,7 +166,7 @@ function showProducts(products) {
         // Calcul du prix en fonction de la quantité choisie
         quantity.addEventListener('change', function() {
             let chosenQuantity = quantity.options[quantity.selectedIndex].text;
-            calculatePrice(products[i], price, chosenQuantity);
+            price.textContent = "Prix : " + calculatePrice(products[i].price, chosenQuantity) + " €";
         });
         carouselItem.appendChild(price);
 
@@ -201,6 +201,7 @@ function showProducts(products) {
                     if (!productInCart) cartContent.push(newProduct);
                 }
                 localStorage.setItem('cartContent', JSON.stringify(cartContent));
+                console.log("Voici les information stockées dans le panier : " + localStorage.getItem('cartContent'));
 
                 alert("Votre produit a bien été ajouté au panier");
                 headerModifications();
