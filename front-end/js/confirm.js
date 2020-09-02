@@ -1,4 +1,5 @@
 let order = JSON.parse(sessionStorage.getItem('order'));
+console.log(order);
 
 let main = document.querySelector('main');
 let products = document.getElementById('products');
