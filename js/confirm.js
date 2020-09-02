@@ -1,13 +1,17 @@
 let order = JSON.parse(sessionStorage.getItem('order'));
-console.log(order);
 
 let main = document.querySelector('main');
 let products = document.getElementById('products');
 let contact = document.getElementById('contact');
 let command = document.getElementById('command');
 
-// Affichage des informations produits
+// Affichage des informations 
+let productsTitle = document.getElementById('products-title');
+if (order.products.length < 2) productsTitle.textContent = "Pour rappel, voici le produit que vous avez commandé :";
+
 for (let article of order.products) {
+    let productsTitle = document.getElementsByClassName('products-title');
+
     let colLeft = document.createElement('div');
     colLeft.classList.add('col-12', 'col-sm-6', 'col-lg-4');
     products.appendChild(colLeft);
