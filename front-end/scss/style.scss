@@ -5,15 +5,3 @@
 @import "pages/cart.scss";
 @import "pages/confirm.scss";
 @import "components/components.scss";
-
-@keyframes wiggle {
-    0%, 100% {
-        transform: rotate(0deg);
-    }
-    20%, 60% {
-        transform: rotate(-2deg);
-    }
-    40%, 80% {
-        transform: rotate(2deg);
-    }
-}

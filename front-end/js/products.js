@@ -50,7 +50,7 @@ carouselControlNext.appendChild(carouselControlNextIcon);
 switch (location.search) {
     case '?id=teddies':
         ajaxGet('http://localhost:3000/api/teddies')
-            .then (function(response) {
+            .then ((response) => {
                 let teddies = response;
                 showProducts(teddies);
             });
@@ -58,7 +58,7 @@ switch (location.search) {
         
     case '?id=cameras':
         ajaxGet('http://localhost:3000/api/cameras')
-            .then (function(response) {
+            .then ((response) => {
                 let cameras = response;
                 showProducts(cameras);
             });
@@ -66,7 +66,7 @@ switch (location.search) {
 
     case '?id=furniture':
         ajaxGet('http://localhost:3000/api/furniture')
-            .then (function(response) {
+            .then ((response) => {
                 let furniture = response;
                 showProducts(furniture);
             });

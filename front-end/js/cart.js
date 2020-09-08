@@ -69,6 +69,7 @@ if (cartContent !== null && cartContent.length > 0) {
         });
 
         let price = document.createElement('p');
+        price.classList.add('price');
         price.textContent = "Prix : " + (cartContent[i].price * cartContent[i].quantity) / 100 + " €";
         colRight.appendChild(price);
 

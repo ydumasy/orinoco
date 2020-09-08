@@ -44,7 +44,7 @@ if (cartContent !== null && cartContent.length > 0) {
     name.addEventListener("blur", function (e) {
         let regexName = /^[a-zA-Z]+$/;
         let errorMessage = "";
-        if (!regexName.test(e.target.value)) {
+        if (e.target.value !== "" && !regexName.test(e.target.value)) {
             errorMessage = "Nom incorrect";
         }
         helpName.textContent = errorMessage;
@@ -52,7 +52,7 @@ if (cartContent !== null && cartContent.length > 0) {
     firstName.addEventListener("blur", function (e) {
         let regexFirstName = /^[a-zA-Z]+$/;
         let errorMessage = "";
-        if (!regexFirstName.test(e.target.value)) {
+        if (e.target.value !== "" && !regexFirstName.test(e.target.value)) {
             errorMessage = "Prénom incorrect";
         }
         helpFirstName.textContent = errorMessage;
@@ -80,7 +80,7 @@ if (cartContent !== null && cartContent.length > 0) {
     address.addEventListener("blur", function(e) {
         let regexAddress = /[a-zA-Z]+.+[0-9]+/;
         let errorMessage = "";
-        if (!regexAddress.test(e.target.value)) {
+        if (e.target.value !== "" && !regexAddress.test(e.target.value)) {
             errorMessage = "Adresse incorrecte";
         }
         helpAddress.textContent = errorMessage;
@@ -108,7 +108,7 @@ if (cartContent !== null && cartContent.length > 0) {
     city.addEventListener("blur", function(e) {
         let regexCity = /^[a-zA-Z]+.+[a-zA-Z]$/;
         let errorMessage = "";
-        if (!regexCity.test(e.target.value)) {
+        if (e.target.value !== "" && !regexCity.test(e.target.value)) {
             errorMessage = "Nom de ville incorrect";
         }
         helpCity.textContent = errorMessage;
@@ -136,7 +136,7 @@ if (cartContent !== null && cartContent.length > 0) {
     mail.addEventListener("blur", function(e) {
         let regexMail = /^.+@.+\..+$/;
         let errorMessage = "";
-        if (!regexMail.test(e.target.value)) {
+        if (e.target.value !== "" && !regexMail.test(e.target.value)) {
             errorMessage = "Adresse incorrecte";
         }
         helpMail.textContent = errorMessage;
@@ -172,7 +172,7 @@ if (cartContent !== null && cartContent.length > 0) {
             console.log("Les informations suivantes vont être envoyées au serveur : " + JSON.stringify(command));
 
             ajaxPost('http://localhost:3000/api/teddies/order', JSON.stringify(command))
-                .then (function(response) {
+                .then ((response) => {
                     sessionStorage.setItem('order', response);
                     localStorage.clear();
                     location = 'confirm.html';
