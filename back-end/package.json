@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass --watch ../front-end/scss/style.scss:../front-end/css/style.css",
     "prefix": "postcss ../front-end/css/style.css --use autoprefixer -d ../front-end/css/prefixed/"
   },
   "author": "Yann Dumasy",
