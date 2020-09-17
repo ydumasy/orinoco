@@ -9650,22 +9650,6 @@ h3 {
     border-color: #dee2e6;
   }
 }
-article.card {
-  transition: transform 500ms;
-}
-article.card:hover {
-  transform: scale(1.1);
-}
-
-@media (max-width: 991px) {
-  .fixed-bottom.footer-index {
-    position: relative;
-  }
-}
-#productTeddies, #productCameras, #productFurniture {
-  display: none;
-}
-
 .carousel-control-prev, .carousel-control-next {
   align-items: initial;
   top: 25%;
