@@ -11,13 +11,13 @@ ajaxGet('http://localhost:3000/api/teddies')
                 if (i === 0) carouselItem.classList.add('active');
                 carouselInner.appendChild(carouselItem);
         
+                // Affichage des caractéristiques de chaque produit
                 let img = document.createElement('img');
                 img.src = teddies[i].imageUrl;
                 img.alt = "Ours en peluche";
                 img.classList.add('d-block', 'w-100');
                 carouselItem.appendChild(img);
         
-                // Affichage des caractéristiques de chaque produit
                 let name = document.createElement('h1');
                 name.textContent = teddies[i].name;
                 name.classList.add('text-center', 'mt-3');
@@ -32,5 +32,10 @@ ajaxGet('http://localhost:3000/api/teddies')
                 viewProduct.classList.add('btn', 'btn-primary', 'btn-block');
                 viewProduct.textContent = "Consulter ce produit";
                 carouselItem.appendChild(viewProduct);
+
+                // Redirection vers la page produit en fonction du choix de l'utilisateur
+                viewProduct.addEventListener('click', () => {
+                    location = "product.html?id=" + teddies[i]._id;
+                });
             }
         });
