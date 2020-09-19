@@ -7,6 +7,7 @@ if (cartContent !== null && cartContent.length > 0) {
     main.classList.remove('container-size');
 
     for (let i in cartContent) {
+        //Mise en place de la structure d'affichage du (ou des) produit(s)
         let rowElt = document.createElement('div');
         rowElt.classList.add('row', 'my-3');
         main.appendChild(rowElt);
@@ -18,6 +19,7 @@ if (cartContent !== null && cartContent.length > 0) {
         colRight.classList.add('col-12', 'col-sm-6', 'text-center', 'text-sm-left', 'col-right');
         rowElt.appendChild(colRight);
 
+        // Affichage de l'image et du nom de chaque produit présent dans le panier
         let productImage = document.createElement('img');
         productImage.src = cartContent[i].image;
         productImage.style.width = '100%';
@@ -29,6 +31,7 @@ if (cartContent !== null && cartContent.length > 0) {
         productName.textContent = cartContent[i].name;
         colRight.appendChild(productName);
 
+        // Affichage de la quantité choisie et des boutons modificateurs
         let rowQuantity = document.createElement('div');
         let quantity = document.createElement('p');
         quantity.style.display = 'inline';
@@ -45,49 +48,24 @@ if (cartContent !== null && cartContent.length > 0) {
         rowQuantity.appendChild(removeButton);
 
         // Possibilité de modifier la quantité de produits demandée
-        addButton.addEventListener('click', function() {
-            cartContent[i].quantity++;
-            price.textContent = "Prix : " + calculatePrice(cartContent[i].price, cartContent[i].quantity) + " €";
-            quantity.textContent = "Quantité : " + cartContent[i].quantity;
-            totalPrice.textContent = "Prix total : " + calculateTotalPrice(cartContent) + " €";
-            localStorage.setItem('cartContent', JSON.stringify(cartContent));
-        });
-        removeButton.addEventListener('click', function() {
-            if (cartContent[i].quantity > 1) {
-                cartContent[i].quantity--;
-                price.textContent = "Prix : " + calculatePrice(cartContent[i].price, cartContent[i].quantity) + " €";
-                quantity.textContent = "Quantité : " + cartContent[i].quantity;
-                totalPrice.textContent = "Prix total : " + calculateTotalPrice(cartContent) + " €";
-                localStorage.setItem('cartContent', JSON.stringify(cartContent));
-            } else {
-                if (confirm("Voulez-vous vraiment retirer ce produit du panier ?")) {
-                    cartContent.splice(i, 1);
-                    localStorage.setItem('cartContent', JSON.stringify(cartContent));
-                    location.reload();
-                }
-            }
-        });
+        modifyQuantity(addButton, removeButton);
 
+        // Affichage du prix de chaque produit
         let price = document.createElement('p');
         price.classList.add('price');
-        price.textContent = "Prix : " + (cartContent[i].price * cartContent[i].quantity) / 100 + " €";
+        price.textContent = "Prix : " + calculatePrice(cartContent[i].price, cartContent[i].quantity) + " €";
         colRight.appendChild(price);
 
+        // Affichage du bouton de suppression
         let spanElt = document.createElement('span');
         colRight.appendChild(spanElt);
         let deleteButton = document.createElement('button');
         deleteButton.classList.add('btn', 'btn-light', 'btn-sm');
         deleteButton.textContent = "Supprimer";
-        spanElt.appendChild(deleteButton);
-
+        spanElt.appendChild(deleteButton); 
+        
         // Possibilité de supprimer l'article du panier
-        deleteButton.addEventListener('click', function() {
-            if (confirm("Voulez-vous vraiment retirer ce produit du panier ?")) {
-                cartContent.splice(i, 1);
-                localStorage.setItem('cartContent', JSON.stringify(cartContent));
-                location.reload();
-            }
-        });       
+        deleteProduct(deleteButton, cartContent, i);       
     }
 
     // Calcul du prix total
@@ -97,6 +75,43 @@ if (cartContent !== null && cartContent.length > 0) {
 
     let footer = document.querySelector('footer');
     footer.classList.remove('fixed-bottom', 'footer-cart');
+}
+
+// Fonction de modification de la quantité de produits
+function modifyQuantity(addButton, removeButton) {
+    addButton.addEventListener('click', function() {
+        cartContent[i].quantity++;
+        price.textContent = "Prix : " + calculatePrice(cartContent[i].price, cartContent[i].quantity) + " €";
+        quantity.textContent = "Quantité : " + cartContent[i].quantity;
+        totalPrice.textContent = "Prix total : " + calculateTotalPrice(cartContent) + " €";
+        localStorage.setItem('cartContent', JSON.stringify(cartContent));
+    });
+    removeButton.addEventListener('click', function() {
+        if (cartContent[i].quantity > 1) {
+            cartContent[i].quantity--;
+            price.textContent = "Prix : " + calculatePrice(cartContent[i].price, cartContent[i].quantity) + " €";
+            quantity.textContent = "Quantité : " + cartContent[i].quantity;
+            totalPrice.textContent = "Prix total : " + calculateTotalPrice(cartContent) + " €";
+            localStorage.setItem('cartContent', JSON.stringify(cartContent));
+        } else {
+            if (confirm("Voulez-vous vraiment retirer ce produit du panier ?")) {
+                cartContent.splice(i, 1);
+                localStorage.setItem('cartContent', JSON.stringify(cartContent));
+                location.reload();
+            }
+        }
+    });
+}
+
+// Fonction de suppression d'un produit
+function deleteProduct(button, products, item) {
+    button.addEventListener('click', function() {
+        if (confirm("Voulez-vous vraiment retirer ce produit du panier ?")) {
+            products.splice(item, 1);
+            localStorage.setItem('cartContent', JSON.stringify(cartContent));
+            location.reload();
+        }
+    });
 }
 
 // Fonction permettant le calcul du prix total

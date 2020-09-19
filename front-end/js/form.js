@@ -4,181 +4,160 @@ if (cartContent !== null && cartContent.length > 0) {
     formElt.classList.add('mt-5');
     main.appendChild(formElt);
 
-    let formGroupName = document.createElement('div');
-    formGroupName.classList.add('form-group', 'row');
-    formElt.appendChild(formGroupName)
-    let labelName = document.createElement('label');
-    labelName.setAttribute ('for', 'name');
-    labelName.classList.add('col-12', 'col-sm-4', 'col-md-3', 'col-lg-2', 'text-center', 'text-sm-left', 'col-form-label');
-    labelName.textContent = "Votre nom :";
-    let name = document.createElement('input');
-    name.type = 'text';
-    name.id = 'name';
-    name.classList.add('col-12', 'col-sm-5', 'col-md-4', 'form-control');
-    formGroupName.appendChild(labelName);
-    formGroupName.appendChild(name);
-    let helpName = document.createElement('span');
-    helpName.classList.add('ml-3', 'pt-2');
-    helpName.style.color = 'red';
-    formGroupName.appendChild(helpName);
+    formElt.innerHTML = 
+    '<div class="form-group row"><label for="last-name" class="col-12 col-sm-4 col-md-3 col-lg-2 text-center text-sm-left col-form-label">Votre nom :</label><input type="text" id="last-name" class="col-12 col-sm-5 col-md-4 form-control"><span id="help-lastname" class="ml-3 pt-2" style="color: red;"></span></div><div class="form-group row"><label for="first-name" class="col-12 col-sm-4 col-md-3 col-lg-2 text-center text-sm-left col-form-label">Votre prénom :</label><input type="text" id="first-name" class="col-12 col-sm-5 col-md-4 form-control"><span id="help-firstname" class="ml-3 pt-2" style="color: red;"></span></div><div class="form-group row"><label for="address" class="col-12 col-sm-4 col-md-3 col-lg-2 text-center text-sm-left col-form-label">Votre adresse :</label><input type="text" id="address" class="col-12 col-sm-8 col-lg-10 form-control"><span id="help-address" class="ml-3 pt-2" style="color: red;"></span></div><div class="form-group row"><label for="city" class="col-12 col-sm-4 col-md-3 col-lg-2 text-center text-sm-left col-form-label">Votre ville :</label><input type="text" id="city" class="col-12 col-sm-5 col-md-4 form-control"><span id="help-city" class="ml-3 pt-2" style="color: red;"></span></div><div class="form-group row"><label for="email" class="col-12 col-sm-4 col-md-3 col-lg-2 text-center text-sm-left col-form-label">Votre e-mail :</label><input type="email" id="email" class="col-12 col-sm-5 col-md-4 form-control"><span id="help-email" class="ml-3 pt-2" style="color: red;"></span></div><button class="btn btn-light mb-5">Passer commande</button>'
 
-    let formGroupFirstName = document.createElement('div');
-    formGroupFirstName.classList.add('form-group', 'row');
-    formElt.appendChild(formGroupFirstName)
-    let labelFirstName = document.createElement('label');
-    labelFirstName.setAttribute ('for', 'first-name');
-    labelFirstName.classList.add('col-12', 'col-sm-4', 'col-md-3', 'col-lg-2', 'text-center', 'text-sm-left', 'col-form-label');
-    labelFirstName.textContent = "Votre prénom :";
-    let firstName = document.createElement('input');
-    firstName.type = 'text';
-    firstName.id = 'first-name';
-    firstName.classList.add('col-12', 'col-sm-5', 'col-md-4', 'form-control');
-    formGroupFirstName.appendChild(labelFirstName);
-    formGroupFirstName.appendChild(firstName);
-    let helpFirstName = document.createElement('span');
-    helpFirstName.classList.add('ml-3', 'pt-2');
-    helpFirstName.style.color = 'red';
-    formGroupFirstName.appendChild(helpFirstName);
+    // Contrôle du nom en fin de saisie
+    let lastName = document.getElementById('last-name');
+    let helpLastName = document.getElementById('help-lastname');
+    lastNameControl(lastName, helpLastName);
 
-    // Contrôle du nom et du prénom en fin de saisie
-    name.addEventListener("blur", function (e) {
-        let regexName = /^[a-zA-Z]+$/;
+    // Contrôle du prénom en fin de saisie
+    let firstName = document.getElementById('first-name');
+    let helpFirstName = document.getElementById('help-firstname');
+    firstNameControl(firstName, helpFirstName);
+
+    // Contrôle de l'adresse en fin de saisie
+    let address = document.getElementById('address');
+    let helpAddress = document.getElementById('help-address');
+    addressControl(address, helpAddress);
+
+    // Contrôle de la ville en fin de saisie
+    let city = document.getElementById('city');
+    let helpCity = document.getElementById('help-city');
+    cityControl(city, helpCity);
+
+    // Contrôle du mail en fin de saisie
+    let email = document.getElementById('email');
+    let helpEmail = document.getElementById('help-email');
+    emailControl(email, helpEmail);
+
+    formElt.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Contrôle final du formulaire avant soumission
+        if (lastNameControl(lastName, helpLastName) 
+          && firstNameControl(firstName, helpFirstName)
+          && addressControl(address, helpAddress)
+          && cityControl(city, helpCity)
+          && emailControl(email, helpEmail)) {
+            submitForm(lastName, firstName, address, city, email);
+        } else {
+            alert("Attention, le formulaire n'est pas valide");
+        }
+    });
+}
+
+// Fonction contrôlant la validité du nom de l'utilisateur
+function lastNameControl(lastName, helpMessage){
+    lastName.addEventListener("blur", function(e) {
+        let regexName = /^[a-zA-Z]+.+[a-zA-Z]+$/;
         let errorMessage = "";
         if (e.target.value !== "" && !regexName.test(e.target.value)) {
             errorMessage = "Nom incorrect";
-        }
-        helpName.textContent = errorMessage;
+            helpMessage.textContent = errorMessage;
+            return false;
+        } else {
+            helpMessage.textContent = "";
+        } 
     });
-    firstName.addEventListener("blur", function (e) {
-        let regexFirstName = /^[a-zA-Z]+$/;
+    if (lastName.value !== "" && helpMessage.textContent === "") return true;
+    else return false;
+}
+
+// Fonction contrôlant la validité du prénom de l'utilisateur
+function firstNameControl(firstName, helpMessage) {
+    firstName.addEventListener("blur", function(e) {
+        let regexFirstName = /^[a-zA-Z]+.+[a-zA-Z]+$/;
         let errorMessage = "";
         if (e.target.value !== "" && !regexFirstName.test(e.target.value)) {
             errorMessage = "Prénom incorrect";
+            helpMessage.textContent = errorMessage;
+            return false;
+        } else {
+            helpMessage.textContent = "";
         }
-        helpFirstName.textContent = errorMessage;
     });
+    if (firstName.value !== "" && helpMessage.textContent === "") return true;
+    else return false;
+}
 
-    let formGroupAddress = document.createElement('div');
-    formGroupAddress.classList.add('form-group', 'row');
-    formElt.appendChild(formGroupAddress)
-    let labelAddress = document.createElement('label');
-    labelAddress.setAttribute ('for', 'address');
-    labelAddress.classList.add('col-12', 'col-sm-4', 'col-md-3', 'col-lg-2', 'text-center', 'text-sm-left', 'col-form-label');
-    labelAddress.textContent = "Votre adresse :";
-    let address = document.createElement('input');
-    address.type = 'text';
-    address.id = 'address';
-    address.classList.add('col-12', 'col-sm-8', 'col-lg-10', 'form-control');
-    formGroupAddress.appendChild(labelAddress);
-    formGroupAddress.appendChild(address);
-    let helpAddress = document.createElement('span');
-    helpAddress.classList.add('ml-3', 'pt-2');
-    helpAddress.style.color = 'red';
-    formGroupAddress.appendChild(helpAddress);
-
-    // Contrôle de l'adresse en fin de saisie
+// Fonction contrôlant la validité de l'adresse
+function addressControl(address, helpMessage) {
     address.addEventListener("blur", function(e) {
         let regexAddress = /[a-zA-Z]+.+[0-9]+/;
         let errorMessage = "";
         if (e.target.value !== "" && !regexAddress.test(e.target.value)) {
             errorMessage = "Adresse incorrecte";
+            helpMessage.textContent = errorMessage;
+            return false;
+        } else {
+            helpMessage.textContent = "";
         }
-        helpAddress.textContent = errorMessage;
     });
+    if (address.value !== "" && helpMessage.textContent === "") return true;
+    else return false;
+}
 
-    let formGroupCity = document.createElement('div');
-    formGroupCity.classList.add('form-group', 'row');
-    formElt.appendChild(formGroupCity)
-    let labelCity = document.createElement('label');
-    labelCity.setAttribute ('for', 'city');
-    labelCity.classList.add('col-12', 'col-sm-4', 'col-md-3', 'col-lg-2', 'text-center', 'text-sm-left', 'col-form-label');
-    labelCity.textContent = "Votre ville :";
-    let city = document.createElement('input');
-    city.type = 'text';
-    city.id = 'city';
-    city.classList.add('col-12', 'col-sm-5', 'col-md-4', 'form-control');
-    formGroupCity.appendChild(labelCity);
-    formGroupCity.appendChild(city);
-    let helpCity = document.createElement('span');
-    helpCity.classList.add('ml-3', 'pt-2');
-    helpCity.style.color = 'red';
-    formGroupCity.appendChild(helpCity);
-
-    // Contrôle de la ville en fin de saisie
+// Fonction contrôlant la validité du nom de la ville
+function cityControl(city, helpMessage) {
     city.addEventListener("blur", function(e) {
         let regexCity = /^[a-zA-Z]+.+[a-zA-Z]$/;
         let errorMessage = "";
         if (e.target.value !== "" && !regexCity.test(e.target.value)) {
             errorMessage = "Nom de ville incorrect";
-        }
-        helpCity.textContent = errorMessage;
-    });
-
-    let formGroupMail = document.createElement('div');
-    formGroupMail.classList.add('form-group', 'row');
-    formElt.appendChild(formGroupMail)
-    let labelMail = document.createElement('label');
-    labelMail.setAttribute ('for', 'mail');
-    labelMail.classList.add('col-12', 'col-sm-4', 'col-md-3', 'col-lg-2', 'text-center', 'text-sm-left', 'col-form-label');
-    labelMail.textContent = "Votre e-mail :";
-    let mail = document.createElement('input');
-    mail.type = 'email';
-    mail.id = 'mail';
-    mail.classList.add('col-12', 'col-sm-5', 'col-md-4', 'form-control');
-    formGroupMail.appendChild(labelMail);
-    formGroupMail.appendChild(mail);
-    let helpMail = document.createElement('span');
-    helpMail.classList.add('ml-3', 'pt-2');
-    helpMail.style.color = 'red';
-    formGroupMail.appendChild(helpMail);
-
-    // Contrôle du mail en fin de saisie
-    mail.addEventListener("blur", function(e) {
-        let regexMail = /^.+@.+\..+$/;
-        let errorMessage = "";
-        if (e.target.value !== "" && !regexMail.test(e.target.value)) {
-            errorMessage = "Adresse incorrecte";
-        }
-        helpMail.textContent = errorMessage;
-    });
-
-    let formButton = document.createElement('button');
-    formButton.classList.add('btn', 'btn-light', 'mb-5');
-    formButton.textContent = "Passer commande";
-    formElt.appendChild(formButton);
-
-    // Contrôle final du formulaire avant soumission
-    formElt.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        if ((name.value !== "" && helpName.textContent === "") 
-        && (firstName.value !== "" && helpFirstName.textContent === "")
-        && (address.value !== "" && helpAddress.textContent === "")
-        && (city.value !== "" && helpCity.textContent === "")
-        && (mail.value !== "" && helpMail.textContent === "")) {
-            let contact = {
-                lastName: name.value,
-                firstName: firstName.value,
-                address: address.value,
-                city: city.value,
-                email: mail.value
-            }
-            let products = [];
-            for (let article of cartContent) products.push(article.id);
-            let command = {
-                contact,
-                products
-            };
-            console.log("Les informations suivantes vont être envoyées au serveur : " + JSON.stringify(command));
-
-            ajaxPost('http://localhost:3000/api/teddies/order', JSON.stringify(command))
-                .then ((response) => {
-                    sessionStorage.setItem('order', response);
-                    localStorage.clear();
-                    location = 'confirm.html';
-                });
+            helpMessage.textContent = errorMessage;
+            return false;
         } else {
-            alert("Attention, le formulaire n'est pas valide");
+            helpMessage.textContent = "";
         }
+    });
+    if (city.value !== "" && helpMessage.textContent === "") return true;
+    else return false;
+}
+
+// Fonctrion contrôlant la validité de l'e-mail
+function emailControl(email, helpMessage) {
+    email.addEventListener("blur", function(e) {
+        let regexEmail = /^.+@.+\..+$/;
+        let errorMessage = "";
+        if (e.target.value !== "" && !regexEmail.test(e.target.value)) {
+            errorMessage = "E-mail incorrect";
+            helpMessage.textContent = errorMessage;
+            return false;
+        } else {
+            helpMessage.textContent = "";
+        }
+    });
+    if (email.value !== "" && helpMessage.textContent === "") return true;
+    else return false;
+}
+
+// Fonction gérant l'envoi du formulaire
+function submitForm(lastName, firstName, address, city, email) {
+    // Création de l'objet contact
+    let contact = {
+        lastName: lastName.value,
+        firstName: firstName.value,
+        address: address.value,
+        city: city.value,
+        email: email.value
+    }
+    // Création du tableau de produits
+    let products = [];
+    for (let article of cartContent) products.push(article.id);
+    // Constitution de l'objet 'command'
+    let command = {
+        contact,
+        products
+    };
+    console.log("Les informations suivantes vont être envoyées au serveur" + JSON.stringify(command));
+
+    // Envoi des informations de commandes au serveur
+    ajaxPost('http://localhost:3000/api/teddies/order', JSON.stringify(command))
+        // Récupération de la réponse du serveur
+        .then ((response) => {
+            sessionStorage.setItem('order', response);
+            localStorage.clear();
+            location = 'confirm.html';
     });
 }

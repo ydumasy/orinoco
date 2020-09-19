@@ -21,7 +21,7 @@ ajaxGet('http://localhost:3000/api/teddies/' + location.search.split('?id=')[1])
     .catch(error => console.log(error));
 
 // Fonction d'affichage des caractéristiques produit
-function showProductSpecificities (container, product) {
+function showProductSpecificities(container, product) {
     let img = document.createElement('img');
     img.src = product.imageUrl;
     img.alt = "Ours en peluche";
@@ -58,7 +58,7 @@ function showProductSpecificities (container, product) {
 }
 
 // Fonction de définition du prix
-function definePrice (container, product) {
+function definePrice(container, product) {
     let rowQuantity = document.createElement('div');
     rowQuantity.classList.add('row');
     container.appendChild(rowQuantity);
@@ -88,7 +88,7 @@ function definePrice (container, product) {
 }
 
 // Fonction d'ajout au panier
-function addToCart (button, product) {
+function addToCart(button, product) {
     button.addEventListener('click', function() {
         let newProduct = {
             image: product.imageUrl,
