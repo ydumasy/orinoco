@@ -48,7 +48,28 @@ if (cartContent !== null && cartContent.length > 0) {
         rowQuantity.appendChild(removeButton);
 
         // Possibilité de modifier la quantité de produits demandée
-        modifyQuantity(addButton, removeButton);
+        addButton.addEventListener('click', function() {
+            cartContent[i].quantity++;
+            price.textContent = "Prix : " + calculatePrice(cartContent[i].price, cartContent[i].quantity) + " €";
+            quantity.textContent = "Quantité : " + cartContent[i].quantity;
+            totalPrice.textContent = "Prix total : " + calculateTotalPrice(cartContent) + " €";
+            localStorage.setItem('cartContent', JSON.stringify(cartContent));
+        });
+        removeButton.addEventListener('click', function() {
+            if (cartContent[i].quantity > 1) {
+                cartContent[i].quantity--;
+                price.textContent = "Prix : " + calculatePrice(cartContent[i].price, cartContent[i].quantity) + " €";
+                quantity.textContent = "Quantité : " + cartContent[i].quantity;
+                totalPrice.textContent = "Prix total : " + calculateTotalPrice(cartContent) + " €";
+                localStorage.setItem('cartContent', JSON.stringify(cartContent));
+            } else {
+                if (confirm("Voulez-vous vraiment retirer ce produit du panier ?")) {
+                    cartContent.splice(i, 1);
+                    localStorage.setItem('cartContent', JSON.stringify(cartContent));
+                    location.reload();
+                }
+            }
+        });
 
         // Affichage du prix de chaque produit
         let price = document.createElement('p');
@@ -75,32 +96,6 @@ if (cartContent !== null && cartContent.length > 0) {
 
     let footer = document.querySelector('footer');
     footer.classList.remove('fixed-bottom', 'footer-cart');
-}
-
-// Fonction de modification de la quantité de produits
-function modifyQuantity(addButton, removeButton) {
-    addButton.addEventListener('click', function() {
-        cartContent[i].quantity++;
-        price.textContent = "Prix : " + calculatePrice(cartContent[i].price, cartContent[i].quantity) + " €";
-        quantity.textContent = "Quantité : " + cartContent[i].quantity;
-        totalPrice.textContent = "Prix total : " + calculateTotalPrice(cartContent) + " €";
-        localStorage.setItem('cartContent', JSON.stringify(cartContent));
-    });
-    removeButton.addEventListener('click', function() {
-        if (cartContent[i].quantity > 1) {
-            cartContent[i].quantity--;
-            price.textContent = "Prix : " + calculatePrice(cartContent[i].price, cartContent[i].quantity) + " €";
-            quantity.textContent = "Quantité : " + cartContent[i].quantity;
-            totalPrice.textContent = "Prix total : " + calculateTotalPrice(cartContent) + " €";
-            localStorage.setItem('cartContent', JSON.stringify(cartContent));
-        } else {
-            if (confirm("Voulez-vous vraiment retirer ce produit du panier ?")) {
-                cartContent.splice(i, 1);
-                localStorage.setItem('cartContent', JSON.stringify(cartContent));
-                location.reload();
-            }
-        }
-    });
 }
 
 // Fonction de suppression d'un produit
