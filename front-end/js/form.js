@@ -40,7 +40,10 @@ if (cartContent !== null && cartContent.length > 0) {
           && addressControl(address, helpAddress)
           && cityControl(city, helpCity)
           && emailControl(email, helpEmail)) {
-            submitForm(lastName, firstName, address, city, email);
+            // Création de l'objet 'command'
+            let command = createCommandInformations(lastName, firstName, address, city, email, cartContent);
+            // Envoi de l'objet 'command' au serveur
+            submitForm(command);
         } else {
             alert("Attention, le formulaire n'est pas valide");
         }
@@ -132,8 +135,8 @@ function emailControl(email, helpMessage) {
     else return false;
 }
 
-// Fonction gérant l'envoi du formulaire
-function submitForm(lastName, firstName, address, city, email) {
+// Fonction permettant la création de l'objet 'command' à envoyer au serveur
+function createCommandInformations(lastName, firstName, address, city, email, order) {
     // Création de l'objet contact
     let contact = {
         lastName: lastName.value,
@@ -144,12 +147,17 @@ function submitForm(lastName, firstName, address, city, email) {
     }
     // Création du tableau de produits
     let products = [];
-    for (let article of cartContent) products.push(article.id);
+    for (let article of order) products.push(article.id);
     // Constitution de l'objet 'command'
     let command = {
         contact,
         products
     };
+    return command;
+}
+
+// Fonction gérant l'envoi du formulaire
+function submitForm(command) {
     console.log("Les informations suivantes vont être envoyées au serveur" + JSON.stringify(command));
 
     // Envoi des informations de commandes au serveur

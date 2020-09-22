@@ -20,16 +20,7 @@ if (cartContent !== null && cartContent.length > 0) {
         rowElt.appendChild(colRight);
 
         // Affichage de l'image et du nom de chaque produit présent dans le panier
-        let productImage = document.createElement('img');
-        productImage.src = cartContent[i].image;
-        productImage.style.width = '100%';
-        productImage.alt = 'Ours en peluche';
-        colLeft.appendChild(productImage);
-
-        let productName = document.createElement('h1');
-        productName.classList.add('product-name');
-        productName.textContent = cartContent[i].name;
-        colRight.appendChild(productName);
+        showCartArticles(colLeft, colRight, cartContent[i]);
 
         // Affichage de la quantité choisie et des boutons modificateurs
         let rowQuantity = document.createElement('div');
@@ -71,11 +62,8 @@ if (cartContent !== null && cartContent.length > 0) {
             }
         });
 
-        // Affichage du prix de chaque produit
-        let price = document.createElement('p');
-        price.classList.add('price');
-        price.textContent = "Prix : " + calculatePrice(cartContent[i].price, cartContent[i].quantity) + " €";
-        colRight.appendChild(price);
+        // Affichage du prix de chaque produit en fonction de la quantité choisie
+        showPrice(colRight, cartContent[i]);
 
         // Affichage du bouton de suppression
         let spanElt = document.createElement('span');
@@ -96,6 +84,28 @@ if (cartContent !== null && cartContent.length > 0) {
 
     let footer = document.querySelector('footer');
     footer.classList.remove('fixed-bottom', 'footer-cart');
+}
+
+// Fonction permettant l'affichage de l'image et du nom d'un produit
+function showCartArticles(leftContainer, rightContainer, product) {
+    let productImage = document.createElement('img');
+    productImage.src = product.image;
+    productImage.style.width = '100%';
+    productImage.alt = 'Ours en peluche';
+    leftContainer.appendChild(productImage);
+
+    let productName = document.createElement('h1');
+    productName.classList.add('product-name');
+    productName.textContent = product.name;
+    rightContainer.appendChild(productName);
+}
+
+// Fonction permettant l'affichage du prix d'un produit en fonction de la quantité choisie
+function showPrice(container, product) {
+    let price = document.createElement('p');
+    price.classList.add('price');
+    price.textContent = "Prix : " + calculatePrice(product.price, product.quantity) + " €";
+    container.appendChild(price);
 }
 
 // Fonction de suppression d'un produit
