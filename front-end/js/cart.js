@@ -63,7 +63,10 @@ if (cartContent !== null && cartContent.length > 0) {
         });
 
         // Affichage du prix de chaque produit en fonction de la quantité choisie
-        showPrice(colRight, cartContent[i]);
+        let price = document.createElement('p');
+        price.classList.add('price');
+        price.textContent = "Prix : " + calculatePrice(cartContent[i].price, cartContent[i].quantity) + " €";
+        colRight.appendChild(price);
 
         // Affichage du bouton de suppression
         let spanElt = document.createElement('span');
@@ -98,14 +101,6 @@ function showCartArticles(leftContainer, rightContainer, product) {
     productName.classList.add('product-name');
     productName.textContent = product.name;
     rightContainer.appendChild(productName);
-}
-
-// Fonction permettant l'affichage du prix d'un produit en fonction de la quantité choisie
-function showPrice(container, product) {
-    let price = document.createElement('p');
-    price.classList.add('price');
-    price.textContent = "Prix : " + calculatePrice(product.price, product.quantity) + " €";
-    container.appendChild(price);
 }
 
 // Fonction de suppression d'un produit
